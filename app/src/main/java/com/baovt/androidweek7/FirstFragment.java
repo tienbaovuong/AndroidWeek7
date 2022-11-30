@@ -4,13 +4,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.baovt.androidweek7.databinding.FragmentFirstBinding;
+import com.google.android.material.snackbar.Snackbar;
 
 public class FirstFragment extends Fragment {
 
@@ -30,19 +31,25 @@ public class FirstFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.buttonFirst.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NavHostFragment.findNavController(FirstFragment.this)
-                        .navigate(R.id.action_FirstFragment_to_SecondFragment);
-            }
-        });
+        binding.fab.setOnClickListener(view1 -> NavHostFragment.findNavController(FirstFragment.this)
+                .navigate(R.id.action_FirstFragment_to_SecondFragment));
+
+        binding.donut.setOnClickListener(view12 -> displayToast(getString(R.string.donut_order_message)));
+
+        binding.iceCream.setOnClickListener(view13 -> displayToast(getString(R.string.ice_cream_order_message)));
+
+        binding.froyo.setOnClickListener(view14 -> displayToast(getString(R.string.froyo_order_message)));
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    public void displayToast(String message) {
+        Toast.makeText(this.getActivity(), message,
+                Toast.LENGTH_SHORT).show();
     }
 
 }
