@@ -16,6 +16,9 @@ import com.google.android.material.snackbar.Snackbar;
 public class FirstFragment extends Fragment {
 
     private FragmentFirstBinding binding;
+    public static final String EXTRA_MESSAGE =
+            "com.baovt.androidweek7.extra.MESSAGE";
+    private String mOrderMessage;
 
     @Override
     public View onCreateView(
@@ -31,14 +34,29 @@ public class FirstFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.fab.setOnClickListener(view1 -> NavHostFragment.findNavController(FirstFragment.this)
-                .navigate(R.id.action_FirstFragment_to_SecondFragment));
+        binding.fab.setOnClickListener(view1 -> {
+            Bundle bundle = new Bundle();
+            bundle.putString(EXTRA_MESSAGE, mOrderMessage);
+            NavHostFragment.findNavController(FirstFragment.this)
+                .navigate(R.id.action_FirstFragment_to_SecondFragment, bundle);
 
-        binding.donut.setOnClickListener(view12 -> displayToast(getString(R.string.donut_order_message)));
+        });
 
-        binding.iceCream.setOnClickListener(view13 -> displayToast(getString(R.string.ice_cream_order_message)));
+        binding.donut.setOnClickListener(view12 -> {
+            mOrderMessage = getString(R.string.donut_order_message);
+            displayToast(mOrderMessage);
 
-        binding.froyo.setOnClickListener(view14 -> displayToast(getString(R.string.froyo_order_message)));
+        });
+
+        binding.iceCream.setOnClickListener(view13 -> {
+            mOrderMessage = getString(R.string.ice_cream_order_message);
+            displayToast(mOrderMessage);
+        });
+
+        binding.froyo.setOnClickListener(view14 -> {
+            mOrderMessage = getString(R.string.froyo_order_message);
+            displayToast(mOrderMessage);
+        });
     }
 
     @Override
